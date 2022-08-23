@@ -1,10 +1,10 @@
 import FetchAxion from './js/fetchAxios.js';
 import cardImges from './templates/card-imges.hbs';
-const fetchAxion = new FetchAxion();
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 
+const fetchAxion = new FetchAxion();
 const { createGallery, getPageOne } = fetchAxion;
 const getPageOneFetchAxion = getPageOne.bind(fetchAxion); // игрался переопредилил функцию из класса...
 
@@ -15,15 +15,16 @@ const inputSearch = document.querySelector('.search-input');
 const btnNextPage = document.querySelector('.btn-primary');
 
 inputSearch.addEventListener('input', onValueInput);
-formSearch.addEventListener('submit', onSearchBtnClick); // почему submit перезагружаеться с  event.preventDefault();
+formSearch.addEventListener('submit', onSearchBtnClick);
 btnNextPage.addEventListener('click', onNextPageClick);
 
 const simpleLightbox = new SimpleLightbox('.gallery a');
 btnNextPage.disabled = true;
+btnNextPage.classList.add('is-hidden');
 
 function onSearchBtnClick(event) {
   event.preventDefault();
-
+  btnNextPage.classList.remove('is-hidden');
   fetchAxion.setPage();
 
   getPageOneFetchAxion().then(response => {
@@ -38,7 +39,6 @@ function onSearchBtnClick(event) {
         gallery.innerHTML += cardImges(response.hits);
         simpleLightbox.refresh();
         btnNextPage.disabled = false;
-        // btnNextPage.classList.remove("");
         return;
       }
     }
@@ -62,10 +62,3 @@ function onNextPageClick() {
     return;
   });
 }
-
-let lightbox = new SimpleLightbox('.gallery a', {
-  /* options */
-  captionPosition: 'bottom',
-  captionDelay: 250,
-  captionsData: 'alt',
-});

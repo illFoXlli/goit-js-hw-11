@@ -16,7 +16,6 @@ export default class {
   };
 
   getPageOne() {
-    // console.log(this.options);
     if (!this.options.params.q) return new Promise(resolve => resolve());
     return axios
       .request(this.options)
@@ -37,17 +36,3 @@ export default class {
     this.options.params.page = 1;
   }
 }
-
-//   createGallery(item) {
-//     return `<a href="${item.largeImageURL}" class="photo-link">
-//       <div class="photo-card">
-//         <img class="photo-img" src="${item.webformatURL}" alt="${item.tags}" loading="lazy" />
-//         <div class="info">
-//             <p class="info-item"><b>Likes:<br> ${item.likes}</b></p>
-//             <p class="info-item"><b>Views:<br> ${item.views}</b></p>
-//             <p class="info-item"><b>Comments:<br> ${item.comments}</b></p>
-//             <p class="info-item"><b>Downloads:<br> ${item.downloads}</b></p>
-//         </div>
-//     </div>
-//   </a>`;
-//   }
